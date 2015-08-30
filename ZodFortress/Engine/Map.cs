@@ -14,7 +14,7 @@ namespace ZodFortress.Engine
         public Units.BoardUnit this[int x, int y, int z]
         {
             get { return Enumerable.Skip(Depth, z).First()[x, y]; }
-            set { this[x, y, z] = value; }
+            set { Enumerable.Skip(Depth, z).First()[x, y] = value; }
         }
 
         public Map(int width, int height, int depth)
