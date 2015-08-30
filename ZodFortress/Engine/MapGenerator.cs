@@ -14,7 +14,7 @@ namespace ZodFortress.Engine
 
         public Map mainBoard = new Map(MapWidth, MapHeight, 1);
 
-            BoardUnit Rock = new BoardUnit(UnitType.Rock, 'O', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3);
+            BoardUnit Rock = new BoardUnit(UnitType.Rock, '^', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3);
             BoardUnit Grass = new BoardUnit(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1);
             BoardUnit Water = new BoardUnit(UnitType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000);
             BoardUnit Lava = new BoardUnit(UnitType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000);
@@ -38,6 +38,44 @@ namespace ZodFortress.Engine
                     yi++;
                 }
                 yi = 0;
+            }
+
+            //fill the map with Trees
+            int xii = 0;
+            int yii = 0;
+            Random rng = new Random();
+            while (xii < MapWidth)
+            {
+                int ri = rng.Next(0, 9);
+                xii++;
+                while (yii < MapHeight)
+                {
+                    if (ri == 1)
+                    {
+                        PlaceBlock(Tree, xii, yii);
+                    }
+                    yii++;
+                }
+                yii = 0;
+            }
+
+            //fill the map with Rocks
+            int xiii = 0;
+            int yiii = 0;
+            Random rngi = new Random();
+            while (xii < MapWidth)
+            {
+                int rii = rngi.Next(0, 10);
+                xii++;
+                while (yiii < MapHeight)
+                {
+                    if (rii == 1)
+                    {
+                        PlaceBlock(Rock, xiii, yiii);
+                    }
+                    yiii++;
+                }
+                yiii = 0;
             }
         }
         public void PlaceBlock(BoardUnit unit, int x, int y)

@@ -49,8 +49,8 @@
     <Compile Include="Engine\Map.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Units\BoardUnit.cs" />
-    <Compile Include="Engine\Units\Orc.cs" />
     <Compile Include="Engine\MapGenerator.cs" />
+    <Compile Include="Engine\Units\Mob.cs" />
     <Compile Include="Engine\Units\UnitType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
