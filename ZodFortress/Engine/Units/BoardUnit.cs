@@ -14,9 +14,19 @@ namespace ZodFortress.Engine.Units
         public int Health { get; private set; }
         public int DefenseStat { get; private set; }
 
-        public BoardUnit()
+        public BoardUnit(string name, char character, ConsoleColor color, int health, int defenseStat)
         {
-
+            this.Name = name;
+            this.Character = character;
+            this.Color = color;
+            this.Health = health;
+            this.DefenseStat = defenseStat;
         }
+
+        public bool Attack(int attackStrength)
+        {
+            this.Health -= attackStrength - DefenseStat;
+            return Health < 1;
+        } 
     }
 }
