@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="Engine\Board.cs" />
     <Compile Include="Engine\CommandParser.cs" />
+    <Compile Include="Engine\Items\EquipSlot.cs" />
+    <Compile Include="Engine\Items\Item.cs" />
     <Compile Include="Engine\Map.cs" />
-    <Compile Include="Engine\MapGenerator.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Units\BoardUnit.cs" />
     <Compile Include="Engine\Units\Orc.cs" />
+    <Compile Include="Engine\MapGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
