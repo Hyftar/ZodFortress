@@ -77,20 +77,44 @@ namespace ZodFortress.Engine
 
         }
 
-        private void Parse(string input)
+        /// <summary>
+        /// Used to parse the string commands into object commands.
+        /// </summary>
+        /// <param name="input">Input to parse</param>
+        /// <returns>Sucess, command, order, object, location</returns>
+        private Command Parse(string input)
         {
             var matches = wordSequence.Matches(input).OfType<Match>().ToArray();
             List<string> commands = new List<string>();
             List<string> orders = new List<string>();
-            List<string> locations = new List<string>();
             List<string> objects = new List<string>();
+            List<string> locations = new List<string>();
             foreach (var match in matches)
             {
                 commands = commandList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
                 orders = orderList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
-                locations = locationList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
                 objects = objectList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
+                locations = locationList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
             }
+
+            var output = new Command();
+
+            // TODO: Make an object output.
+            if (commands.Count > 1 || orders.Count > 1 || locations.Count > 1 || objects.Count > 1)
+                return output;
+
+            else if (commands.Any())
+                output.GameCommand = commands.First();
+
+            else if (orders.Any() && locations.Any())
+            {
+                output.Order = orders.First();
+                if (locations.Any())
+                    output.Location = locations.First();
+                output.Object = objects.First();
+            }
+
+            return output;
         }
     }
 }
