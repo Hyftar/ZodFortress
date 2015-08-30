@@ -16,7 +16,7 @@ namespace ZodFortress.Engine
         private IEnumerable<Units.BoardUnit> content;
         public Board(int width, int height)
         {
-            BoardSize = new Size(width, height);
+            this.BoardSize = new Size(width, height);
             this.content = new List<Units.BoardUnit>();
         }
 
@@ -24,8 +24,16 @@ namespace ZodFortress.Engine
         {
             get
             {
-                int finalInputValue = x * BoardSize.Width + y;
+                int finalInputValue = x + BoardSize.Width * y;
                 return content.ToArray()[finalInputValue];
+            }
+
+            set
+            {
+                int finalInputValue = x + BoardSize.Width * y;
+                List<Units.BoardUnit> tempList = content.ToList();
+                tempList[finalInputValue] = value;
+                this.content = tempList;
             }
         }
     }

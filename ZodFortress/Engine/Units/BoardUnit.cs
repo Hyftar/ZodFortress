@@ -8,6 +8,15 @@ namespace ZodFortress.Engine.Units
 {
     public class BoardUnit
     {
-        public char UnitCharacter { get; private set; }
+        public string Name { get; private set; }
+        public char Character { get; private set; }
+        public ConsoleColor Color { get; private set; }
+        public int Health { get; private set; }
+        public int DefenseStat { get; private set; }
+
+        public BoardUnit()
+        {
+
+        }
     }
 }
