@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZodFortress;
 using ZodFortress.Engine;
+using ZodFortress.Engine.Units;
 
 namespace ZodFortress.Engine
 {
@@ -20,12 +21,17 @@ namespace ZodFortress.Engine
             var tempList = new List<Units.BoardUnit>();
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    tempList.Add(new Units.BoardUnit(Units.UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1));
+                    tempList.Add(new BoardUnit(Units.UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true));
             this.content = tempList;
 
         }
+        public BoardUnit this[Point position]
+        {
+            get { return this[position.X, position.Y]; }
+            set { this[position.X, position.Y] = value; }
+        }
 
-        public Units.BoardUnit this[int x, int y]
+        public BoardUnit this[int x, int y]
         {
             get
             {

@@ -8,21 +8,23 @@ namespace ZodFortress.Engine.Units
 {
     public class BoardUnit
     {
-        public UnitType Name { get; private set; }
+        public UnitType Type { get; private set; }
         public char Character { get; private set; }
         public ConsoleColor FontColor { get; private set; }
         public ConsoleColor BackColor { get; private set; }
         public int Health { get; private set; }
         public int DefenseStat { get; private set; }
+        public bool IsWalkable { get; private set; }
 
-        public BoardUnit(UnitType name, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat)
+        public BoardUnit(UnitType type, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat, bool isWalkable)
         {
-            this.Name = name;
+            this.Type = type;
             this.Character = character;
             this.FontColor = fontColor;
             this.BackColor = backColor;
             this.Health = health;
             this.DefenseStat = defenseStat;
+            this.IsWalkable = isWalkable;
         }
 
         public bool Attack(int attackStrength)
