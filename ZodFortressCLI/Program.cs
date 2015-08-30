@@ -145,7 +145,9 @@ namespace ZodFortressCLI
             #endregion
             Console.ResetColor();
 
-            
+            //reset cursor position
+            PlaceCursor(0, 0);
+
         }
         static void OutPutText(String Text)
         {

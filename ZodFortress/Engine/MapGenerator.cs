@@ -10,7 +10,8 @@ namespace ZodFortress.Engine
     {
         public static void Generate()
         {
-
+            var mainBoard = new Map(100, 100, 1);
+            //var blah = mainBoard.Height.First()[1, 1];
         }
     }
 }
