@@ -19,23 +19,23 @@ namespace ZodFortressCLI
                 Draw();
                 Update();
             }
-            
         }
+
         static void Update()
         {
-            //handling output
-            OutPutText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
-            //handling input
+            // Handling output
+            OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
+            // Handling input
             PlaceCursor(37, 2);
             Console.Write(">");
             Console.ReadLine();
         }
-        static void Draw()
 
+        static void Draw()
         {
-            //clear the screen
+            // Clear the screen
             Console.Clear();
-            //draw the overlay 28x36
+            // Draw the overlay 28x36
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             PlaceCursor(0, 0);
             Console.ForegroundColor = ConsoleColor.Green;
@@ -45,8 +45,8 @@ namespace ZodFortressCLI
             int iii = 0;
             while (iii < 80)
             {
-            PlaceCursor(iii, 24);
-            Console.Write(" ");
+                PlaceCursor(iii, 24);
+                Console.Write(" ");
                 iii++;
             }
 
@@ -117,18 +117,6 @@ namespace ZodFortressCLI
                             PlaceCursor(0, i + 1);
                             Console.Write("M");
                             break;
-                            //case 23:
-                            //    PlaceCursor(0, i + 1);
-                            //    Console.Write("N");
-                            //    break;
-                            //case 24:
-                            //    PlaceCursor(0, i + 1);
-                            //    Console.Write("O");
-                            //    break;
-                            //case 25:
-                            //    PlaceCursor(0, i + 1);
-                            //    Console.Write("P");
-                            //    break;
                     }
                 }
                 i++;
@@ -137,22 +125,20 @@ namespace ZodFortressCLI
                 int ii = 0;
                 while (ii < 22)
                 {
-                PlaceCursor(36, ii + 2);
-                Console.Write("|");
-                ii++;
+                    PlaceCursor(36, ii + 2);
+                    Console.Write("|");
+                    ii++;
                 }
             #endregion
             Console.ResetColor();
 
-            //reset cursor position
+            // Reset cursor position
             PlaceCursor(0, 0);
-
         }
-        static void OutPutText(String Text)
+        static void OutputText(String Text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            string[] SplText =
-            Regex.Matches(Text, ".{1," + 43 + "}").Cast<Match>().Select(m => m.Value).ToArray();
+            string[] SplText = Regex.Matches(Text, ".{1, 43}").Cast<Match>().Select(m => m.Value).ToArray();
             int i = 0;
             foreach (var item in SplText)
             {
@@ -162,10 +148,12 @@ namespace ZodFortressCLI
             }
             Console.ResetColor();
         }
+
         static void PlaceCursor(int x, int y)
         {
             Console.SetCursorPosition(x, y);
         }
+
         static void PlayerDead()
         {
             PlaceCursor(25, 14);
