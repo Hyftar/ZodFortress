@@ -14,6 +14,7 @@ namespace ZodFortress.Engine
 
         public Map mainBoard = new Map(MapWidth, MapHeight, 1);
 
+<<<<<<< HEAD
         BoardUnit Rock = new BoardUnit(UnitType.Rock, 'O', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
         BoardUnit Grass = new BoardUnit(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
         BoardUnit Water = new BoardUnit(UnitType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000, false);
@@ -23,6 +24,17 @@ namespace ZodFortress.Engine
         BoardUnit WoodWall = new BoardUnit(UnitType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
         BoardUnit Tree = new BoardUnit(UnitType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
         BoardUnit Floor = new BoardUnit(UnitType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
+=======
+            BoardUnit Rock = new BoardUnit(UnitType.Rock, '^', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3);
+            BoardUnit Grass = new BoardUnit(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1);
+            BoardUnit Water = new BoardUnit(UnitType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000);
+            BoardUnit Lava = new BoardUnit(UnitType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000);
+            BoardUnit Road = new BoardUnit(UnitType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10);
+            BoardUnit StoneWall = new BoardUnit(UnitType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5);
+            BoardUnit WoodWall = new BoardUnit(UnitType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5);
+            BoardUnit Tree = new BoardUnit(UnitType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2);
+            BoardUnit Floor = new BoardUnit(UnitType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4);
+>>>>>>> 1c677c017b9db63f6f35675d29863a225af1fc3f
             
         public void Generate()
         {
@@ -38,6 +50,44 @@ namespace ZodFortress.Engine
                     yi++;
                 }
                 yi = 0;
+            }
+
+            //fill the map with Trees
+            int xii = 0;
+            int yii = 0;
+            Random rng = new Random();
+            while (xii < MapWidth)
+            {
+                int ri = rng.Next(0, 9);
+                xii++;
+                while (yii < MapHeight)
+                {
+                    if (ri == 1)
+                    {
+                        PlaceBlock(Tree, xii, yii);
+                    }
+                    yii++;
+                }
+                yii = 0;
+            }
+
+            //fill the map with Rocks
+            int xiii = 0;
+            int yiii = 0;
+            Random rngi = new Random();
+            while (xii < MapWidth)
+            {
+                int rii = rngi.Next(0, 10);
+                xii++;
+                while (yiii < MapHeight)
+                {
+                    if (rii == 1)
+                    {
+                        PlaceBlock(Rock, xiii, yiii);
+                    }
+                    yiii++;
+                }
+                yiii = 0;
             }
         }
         public void PlaceBlock(BoardUnit unit, int x, int y)

@@ -21,7 +21,6 @@ namespace ZodFortressCLI
             }
             
         }
-
         static void Update()
         {
             //handling output
@@ -166,6 +165,17 @@ namespace ZodFortressCLI
         static void PlaceCursor(int x, int y)
         {
             Console.SetCursorPosition(x, y);
+        }
+        static void PlayerDead()
+        {
+            PlaceCursor(25, 14);
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("You lost to Zod");
+            Console.ResetColor();
+            PlaceCursor(0, 0);
+            Console.Read();
+            Program.IsRuning = false;
         }
         #region InputEvent
 
