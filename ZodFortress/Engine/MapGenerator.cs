@@ -8,6 +8,9 @@ namespace ZodFortress.Engine
 {
     public class MapGenerator
     {
-        
+        public static void Generate()
+        {
+
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ZodFortressCLI
@@ -23,6 +24,8 @@ namespace ZodFortressCLI
 
         static void Update()
         {
+            //handling output
+            OutPutText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
             //handling input
             PlaceCursor(37, 2);
             Console.Write(">");
@@ -146,8 +149,17 @@ namespace ZodFortressCLI
         }
         static void OutPutText(String Text)
         {
-            List<string> lstinternalcounter = Text.Select(c => c.ToString()).ToList();
-
+            Console.ForegroundColor = ConsoleColor.Green;
+            string[] SplText =
+            Regex.Matches(Text, ".{1," + 43 + "}").Cast<Match>().Select(m => m.Value).ToArray();
+            int i = 0;
+            foreach (var item in SplText)
+            {
+                PlaceCursor(37, 3 + i);
+                Console.Write(item);
+                i++;
+            }
+            Console.ResetColor();
         }
         static void PlaceCursor(int x, int y)
         {
