@@ -48,6 +48,7 @@
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Units\BoardUnit.cs" />
     <Compile Include="Engine\Units\Orc.cs" />
+    <Compile Include="Engine\Units\UnitType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
