@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZodFortress.Engine.Units
 {
-    class BoardUnit
+    public class BoardUnit
     {
+        public char UnitCharacter { get; private set; }
+        public virtual Bo
     }
 }
