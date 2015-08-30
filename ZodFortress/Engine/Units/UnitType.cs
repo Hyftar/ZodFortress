@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace ZodFortress.Engine.Units
 {
-    public class Orc : BoardUnit
+    public enum UnitType
     {
+        Rock,
+        Grass,
+        Water,
+        Lava,
+        Road,
+        WoodWall,
+        StoneWall,
+        Tree,
+        Floor
     }
 }

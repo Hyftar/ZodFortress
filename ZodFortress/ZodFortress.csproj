@@ -49,7 +49,11 @@
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Units\BoardUnit.cs" />
     <Compile Include="Engine\Units\Orc.cs" />
+<<<<<<< HEAD
     <Compile Include="Engine\MapGenerator.cs" />
+=======
+    <Compile Include="Engine\Units\UnitType.cs" />
+>>>>>>> 53a0a0b3a172e6977d83c089b254ac5f5eea1c80
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
