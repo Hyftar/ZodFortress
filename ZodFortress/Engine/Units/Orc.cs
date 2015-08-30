@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZodFortress.Engine.Units
 {
-    class Orc
+    public class Orc
     {
     }
 }

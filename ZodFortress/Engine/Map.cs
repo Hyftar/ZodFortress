@@ -13,7 +13,6 @@ namespace ZodFortress.Engine
 
         public Map(int height, int width, int depth)
         {
-            Board blah = new Board()
         }
     }
 }

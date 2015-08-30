@@ -9,6 +9,5 @@ namespace ZodFortress.Engine.Units
     public class BoardUnit
     {
         public char UnitCharacter { get; private set; }
-        public virtual Bo
     }
 }
