@@ -10,15 +10,17 @@ namespace ZodFortress.Engine.Units
     {
         public string Name { get; private set; }
         public char Character { get; private set; }
-        public ConsoleColor Color { get; private set; }
+        public ConsoleColor FontColor { get; private set; }
+        public ConsoleColor BackColor { get; private set; }
         public int Health { get; private set; }
         public int DefenseStat { get; private set; }
 
-        public BoardUnit(string name, char character, ConsoleColor color, int health, int defenseStat)
+        public BoardUnit(string name, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat)
         {
             this.Name = name;
             this.Character = character;
-            this.Color = color;
+            this.FontColor = fontColor;
+            this.BackColor = backColor;
             this.Health = health;
             this.DefenseStat = defenseStat;
         }
