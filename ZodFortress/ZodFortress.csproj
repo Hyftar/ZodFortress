@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Board.cs" />
+    <Compile Include="Engine\MapGenerator.cs" />
     <Compile Include="Engine\Units\BoardUnit.cs" />
     <Compile Include="Engine\Units\Orc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
