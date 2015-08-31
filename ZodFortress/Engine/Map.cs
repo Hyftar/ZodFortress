@@ -8,23 +8,25 @@ namespace ZodFortress.Engine
 {
     public class Map
     {
-        public IEnumerable<Board> Depth { get; private set; }
-        public int MaxDepth { get; private set; }
+        private readonly Board[] layers;
+        public IEnumerable<Board> Layers { get { return this.layers; } }
+        public int Depth { get; private set; }
 
         public Units.BoardBlock this[int x, int y, int z]
         {
-            get { return Enumerable.Skip(this.Depth, z).First()[x, y]; }
-            set { Enumerable.Skip(this.Depth, z).First()[x, y] = value; }
+            get { return this.layers[z][x, y]; }
+            set { this.layers[z][x, y] = value; }
         }
 
         public Map(int width, int height, int depth)
         {
-            this.MaxDepth = depth;
-            var boards = new List<Board>();
+            if (depth < 0)
+                throw new ArgumentOutOfRangeException("depth");
 
-            for (int i = 0; i < depth; ++i)
-                boards.Add(new Board(width, height));
-            this.Depth = boards;
+            if (depth == 0)
+                throw new ArgumentException("depth");
+
+            this.layers = Enumerable.Range(0, depth).Select(x => new Board(width, height)).ToArray();
         }
     }
 }

@@ -58,7 +58,7 @@ namespace ZodFortress.Engine
         /// <param name="y"></param>
         public void PlaceBlock(BoardBlock unit, int x, int y)
         {
-            if (x < 0 || x >= mainBoard.Depth.First().BoardSize.Width || y < 0 || y >= mainBoard.Depth.First().BoardSize.Height)
+            if (x < 0 || x >= mainBoard.Layers.First().BoardSize.Width || y < 0 || y >= mainBoard.Layers.First().BoardSize.Height)
                 return;
 
             mainBoard[x, y, 0] = unit;
