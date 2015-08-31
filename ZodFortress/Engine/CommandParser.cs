@@ -19,6 +19,9 @@ namespace ZodFortress.Engine
                                                             "fuck",
                                                             "wtf",
                                                             "end",
+                                                            "leave",
+                                                            "quit",
+                                                            "exit"
                                                         };
 
         private static readonly string[] orderList = new string[]
@@ -50,7 +53,8 @@ namespace ZodFortress.Engine
                                                             // TODO: Add objects to list.
                                                             "man",
                                                             "orc",
-                                                            "zod"
+                                                            "zod",
+                                                            "mob"
                                                         };
 
         private static readonly string[] locationList = new string[]
