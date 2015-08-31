@@ -25,62 +25,37 @@ namespace ZodFortress.Engine
         BoardBlock Floor = new BoardBlock(UnitType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
         
         /// <summary>
-        /// Generation algorithm for the map
+        /// Generates a random map.
         /// </summary>
         public void Generate()
         {
-            // Fill the map with Grass
-            int xi = 0;
-            int yi = 0;
-            while (xi < MapWidth)
-            {
-                xi++;
-                while (yi < MapHeight)
-                {
-                    PlaceBlock(Grass, xi, yi);
-                    yi++;
-                }
-                yi = 0;
-            }
+            // Fill the map with Grass -> The map is already full of grass by default
+            //for (int i = 0; i < MapWidth; i++)
+            //    for (int j = 0; j < MapHeight; j++)
+            //        PlaceBlock(Grass, i, j);
 
             // Fill the map with Trees
-            int xii = 0;
-            int yii = 0;
             Random rng = new Random();
-            while (xii < MapWidth)
+            int r = 0;
+            for (int i = 0; i < MapWidth; i++)
             {
-                int ri = rng.Next(0, 9);
-                xii++;
-                while (yii < MapHeight)
+                for (int j = 0; j < MapHeight; j++)
                 {
-                    if (ri == 1)
-                    {
-                        PlaceBlock(Tree, xii, yii);
-                    }
-                    yii++;
+                    r = rng.Next(9);
+                    if (r == 0)
+                        PlaceBlock(Tree, i, j);
+                    else if (r == 1)
+                        PlaceBlock(Rock, i, j);
                 }
-                yii = 0;
-            }
-
-            // Fill the map with Rocks
-            int xiii = 0;
-            int yiii = 0;
-            Random rngi = new Random();
-            while (xii < MapWidth)
-            {
-                int rii = rngi.Next(0, 10);
-                xii++;
-                while (yiii < MapHeight)
-                {
-                    if (rii == 1)
-                    {
-                        PlaceBlock(Rock, xiii, yiii);
-                    }
-                    yiii++;
-                }
-                yiii = 0;
             }
         }
+
+        /// <summary>
+        /// Places a block or a unit at the specified location in the map.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void PlaceBlock(BoardBlock unit, int x, int y)
         {
             if (x < 0 || x >= mainBoard.Depth.First().BoardSize.Width || y < 0 || y >= mainBoard.Depth.First().BoardSize.Height)
