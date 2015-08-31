@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using ZodFortress.Engine.Items;
 
-namespace ZodFortress.Engine
+namespace ZodFortress.Engine.Units
 {
     public class Player
     {
@@ -33,7 +33,7 @@ namespace ZodFortress.Engine
 
         public bool Attack(int attackStrength)
         {
-            this.Health -= attackStrength - (int) Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
+            this.Health -= attackStrength - (int) Math.Round(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
             return this.Health < 1;
         }
 
