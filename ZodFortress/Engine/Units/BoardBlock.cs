@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZodFortress.Engine.Units
 {
-    public class BoardUnit
+    public class BoardBlock
     {
         public UnitType Type { get; private set; }
         public char Character { get; private set; }
@@ -16,7 +16,7 @@ namespace ZodFortress.Engine.Units
         public int DefenseStat { get; private set; }
         public bool IsWalkable { get; private set; }
 
-        public BoardUnit(UnitType type, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat, bool isWalkable)
+        public BoardBlock(UnitType type, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat, bool isWalkable)
         {
             this.Type = type;
             this.Character = character;
