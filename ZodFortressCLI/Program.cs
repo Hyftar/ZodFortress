@@ -15,7 +15,6 @@ namespace ZodFortressCLI
             Console.Title = "ZodFortress";
             while (IsRuning)
             {
-
                 Draw();
                 Update();
             }
@@ -121,14 +120,14 @@ namespace ZodFortressCLI
                 }
                 i++;
             }
-                
-                int ii = 0;
-                while (ii < 22)
-                {
-                    PlaceCursor(36, ii + 2);
-                    Console.Write("|");
-                    ii++;
-                }
+            
+            i = 0;
+            while (i < 22)
+            {
+                PlaceCursor(36, i + 2);
+                Console.Write("|");
+                i++;
+            }
             #endregion
             Console.ResetColor();
 
@@ -138,9 +137,9 @@ namespace ZodFortressCLI
         static void OutputText(String Text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            string[] SplText = Regex.Matches(Text, ".{1, 43}").Cast<Match>().Select(m => m.Value).ToArray();
+            var splText = Regex.Matches(Text, ".{1, 43}").Cast<Match>().Select(m => m.Value);
             int i = 0;
-            foreach (var item in SplText)
+            foreach (var item in splText)
             {
                 PlaceCursor(37, 3 + i);
                 Console.Write(item);
