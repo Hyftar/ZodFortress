@@ -14,19 +14,22 @@ namespace ZodFortress.Engine
 
         public Map mainBoard = new Map(MapWidth, MapHeight, 1);
 
-        BoardUnit Rock = new BoardUnit(UnitType.Rock, 'O', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
-        BoardUnit Grass = new BoardUnit(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
-        BoardUnit Water = new BoardUnit(UnitType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000, false);
-        BoardUnit Lava = new BoardUnit(UnitType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000, false);
-        BoardUnit Road = new BoardUnit(UnitType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10, true);
-        BoardUnit StoneWall = new BoardUnit(UnitType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5, false);
-        BoardUnit WoodWall = new BoardUnit(UnitType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
-        BoardUnit Tree = new BoardUnit(UnitType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
-        BoardUnit Floor = new BoardUnit(UnitType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
-            
+        BoardBlock Rock = new BoardBlock(UnitType.Rock, 'O', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
+        BoardBlock Grass = new BoardBlock(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
+        BoardBlock Water = new BoardBlock(UnitType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000, false);
+        BoardBlock Lava = new BoardBlock(UnitType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000, false);
+        BoardBlock Road = new BoardBlock(UnitType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10, true);
+        BoardBlock StoneWall = new BoardBlock(UnitType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5, false);
+        BoardBlock WoodWall = new BoardBlock(UnitType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
+        BoardBlock Tree = new BoardBlock(UnitType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
+        BoardBlock Floor = new BoardBlock(UnitType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
+        
+        /// <summary>
+        /// Generation algorithm for the map
+        /// </summary>
         public void Generate()
         {
-            //fill the map with Grass
+            // Fill the map with Grass
             int xi = 0;
             int yi = 0;
             while (xi < MapWidth)
@@ -40,7 +43,7 @@ namespace ZodFortress.Engine
                 yi = 0;
             }
 
-            //fill the map with Trees
+            // Fill the map with Trees
             int xii = 0;
             int yii = 0;
             Random rng = new Random();
@@ -59,7 +62,7 @@ namespace ZodFortress.Engine
                 yii = 0;
             }
 
-            //fill the map with Rocks
+            // Fill the map with Rocks
             int xiii = 0;
             int yiii = 0;
             Random rngi = new Random();
@@ -78,16 +81,23 @@ namespace ZodFortress.Engine
                 yiii = 0;
             }
         }
-        public void PlaceBlock(BoardUnit unit, int x, int y)
+        public void PlaceBlock(BoardBlock unit, int x, int y)
         {
             if (x < 0 || x >= mainBoard.Depth.First().BoardSize.Width || y < 0 || y >= mainBoard.Depth.First().BoardSize.Height)
                 return;
+
             mainBoard[x, y, 0] = unit;
         }
+
+        /// <summary>
+        /// Places a stone house at the specified location.
+        /// </summary>
+        /// <param name="x">X Coordinate</param>
+        /// <param name="y">Y Coordinate</param>
         public void PlaceStoneHouse(int x, int y)
         {
             PlaceBlock(StoneWall, x, y);
-            PlaceBlock(Floor, x + 1, y);//this is the door
+            PlaceBlock(Floor, x + 1, y); // This is the door
             PlaceBlock(StoneWall, x + 2, y);
             PlaceBlock(StoneWall, x + 3, y);
             PlaceBlock(StoneWall, x, y + 1);
@@ -104,10 +114,16 @@ namespace ZodFortress.Engine
             PlaceBlock(Floor, x + 1, y + 2);
             PlaceBlock(Floor, x + 2, y + 3);
         }
+
+        /// <summary>
+        /// Places a wood house at the specified location.
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
         public void PlaceWoodHouse(int x, int y)
         {
             PlaceBlock(WoodWall, x, y);
-            PlaceBlock(Floor, x + 1, y);//this is the door
+            PlaceBlock(Floor, x + 1, y); // This is the door
             PlaceBlock(WoodWall, x + 2, y);
             PlaceBlock(WoodWall, x + 3, y);
             PlaceBlock(WoodWall, x, y + 1);
