@@ -27,9 +27,14 @@ namespace ZodFortress.Engine.Units
             this.IsWalkable = isWalkable;
         }
 
+        /// <summary>
+        /// Attacks the block with the specified strength.
+        /// </summary>
+        /// <param name="attackStrength">Strength of the attack</param>
+        /// <returns>True if the attack is lethal</returns>
         public bool Attack(int attackStrength)
         {
-            this.Health -= attackStrength - DefenseStat;
+            this.Health -= attackStrength - this.DefenseStat;
             return Health < 1;
         } 
     }

@@ -74,11 +74,9 @@ namespace ZodFortress.Engine
                                                            "w",
                                                            "s"
                                                         };
-
         public CommandParser(string input)
         {
             Parse(input);
-
         }
 
         /// <summary>
@@ -103,7 +101,6 @@ namespace ZodFortress.Engine
 
             var output = new Command();
 
-            // TODO: Make an object output.
             if (commands.Count > 1 || orders.Count > 1 || locations.Count > 1 || objects.Count > 1)
                 return output;
 

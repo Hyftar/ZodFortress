@@ -8,19 +8,20 @@ namespace ZodFortress.Engine
 {
     public class Board
     {
-        public Size BoardSize { get; private set; }
+        public Size Size { get; private set; }
 
         private IEnumerable<BoardBlock> content;
-        public Board(int width, int height)
+        public Board(Size dimension)
         {
-            this.BoardSize = new Size(width, height);
+            this.Size = dimension;
             var tempList = new List<BoardBlock>();
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    tempList.Add(new BoardBlock(UnitType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true));
-
-            this.content = tempList;
+            for (int i = 0; i < dimension.Width; i++)
+                for (int j = 0; j < dimension.Height; j++)
+                    tempList.Add(new BoardBlock(UnitType.Grass, ' ', ConsoleColor.Black, ConsoleColor.DarkGreen, 1, 1, true));
         }
+        public Board(int width, int height) : this(new Size(width, height)) { }
+        public Board(Point maxSize) : this(new Size(maxSize)) { }
+
         public BoardBlock this[Point position]
         {
             get { return this[position.X, position.Y]; }
@@ -31,13 +32,13 @@ namespace ZodFortress.Engine
         {
             get
             {
-                int finalInputValue = x + (BoardSize.Width - 1 * y);
+                int finalInputValue = x + (Size.Width - 1 * y);
                 return content.ToArray()[finalInputValue];
             }
 
             set
             {
-                int finalInputValue = x + (BoardSize.Width - 1 * y);
+                int finalInputValue = x + (Size.Width - 1 * y);
                 List<BoardBlock> tempList = content.ToList();
                 tempList[finalInputValue] = value;
                 this.content = tempList;
