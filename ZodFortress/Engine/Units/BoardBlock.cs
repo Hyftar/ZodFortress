@@ -8,7 +8,7 @@ namespace ZodFortress.Engine.Units
 {
     public class BoardBlock
     {
-        public UnitType Type { get; private set; }
+        public BlockType Type { get; private set; }
         public char Character { get; private set; }
         public ConsoleColor FontColor { get; private set; }
         public ConsoleColor BackColor { get; private set; }
@@ -16,7 +16,7 @@ namespace ZodFortress.Engine.Units
         public int DefenseStat { get; private set; }
         public bool IsWalkable { get; private set; }
 
-        public BoardBlock(UnitType type, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat, bool isWalkable)
+        public BoardBlock(BlockType type, char character, ConsoleColor backColor, ConsoleColor fontColor, int health, int defenseStat, bool isWalkable)
         {
             this.Type = type;
             this.Character = character;
@@ -36,6 +36,6 @@ namespace ZodFortress.Engine.Units
         {
             this.Health -= attackStrength - this.DefenseStat;
             return Health < 1;
-        } 
+        }
     }
 }

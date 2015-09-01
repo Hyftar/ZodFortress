@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ZodFortress.Engine.Units;
 
 namespace ZodFortressCLI
 {
@@ -38,7 +39,7 @@ namespace ZodFortressCLI
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             PlaceCursor(0, 0);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Welcome to Zod         Now playing //");
+            Console.WriteLine("Welcome to ZodFortress - Now playing ");
             PlaceCursor(0, 1);
             Console.WriteLine("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
             int iii = 0;
@@ -161,8 +162,8 @@ namespace ZodFortressCLI
             Console.Write("You lost to Zod");
             Console.ResetColor();
             PlaceCursor(0, 0);
-            Console.Read();
             Program.IsRuning = false;
+            Console.Read();
         }
         #region InputEvent
 

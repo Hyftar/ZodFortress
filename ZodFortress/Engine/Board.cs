@@ -11,16 +11,16 @@ namespace ZodFortress.Engine
         public Size Size { get; private set; }
 
         private IEnumerable<BoardBlock> content;
-        public Board(Size dimension)
+        public Board(Size dimension, BoardBlock defaultBlock)
         {
             this.Size = dimension;
             var tempList = new List<BoardBlock>();
             for (int i = 0; i < dimension.Width; i++)
                 for (int j = 0; j < dimension.Height; j++)
-                    tempList.Add(new BoardBlock(UnitType.Grass, ' ', ConsoleColor.Black, ConsoleColor.DarkGreen, 1, 1, true));
+                    tempList.Add(defaultBlock);
         }
-        public Board(int width, int height) : this(new Size(width, height)) { }
-        public Board(Point maxSize) : this(new Size(maxSize)) { }
+        public Board(int width, int height, BoardBlock defaultBlock) : this(new Size(width, height), defaultBlock) { }
+        public Board(Point maxSize, BoardBlock defaultBlock) : this(new Size(maxSize), defaultBlock) { }
 
         public BoardBlock this[Point position]
         {

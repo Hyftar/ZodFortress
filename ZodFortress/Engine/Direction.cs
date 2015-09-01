@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZodFortress.Engine
 {
+    /// <summary>
+    /// Directions the players and mobs can move in.
+    /// </summary>
     public enum MovementDirection
     {
         Up,

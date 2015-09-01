@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZodFortress.Engine.Items;
 
 namespace ZodFortress.Engine.Units
@@ -11,6 +7,7 @@ namespace ZodFortress.Engine.Units
     public class Mob
     {
         public string Name { get; private set; }
+        public string Text { get; private set; }
         public Point Position { get; private set; }
         public Item OffensiveSlot { get; private set; }
         public Item DefensiveSlot { get; private set; }

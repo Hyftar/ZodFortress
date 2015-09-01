@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ZodFortress.Engine
 {
@@ -87,10 +84,10 @@ namespace ZodFortress.Engine
         private Command Parse(string input)
         {
             var matches = wordSequence.Matches(input).OfType<Match>().ToArray();
-            List<string> commands = new List<string>();
-            List<string> orders = new List<string>();
-            List<string> objects = new List<string>();
-            List<string> locations = new List<string>();
+            var commands = new List<string>();
+            var orders = new List<string>();
+            var objects = new List<string>();
+            var locations = new List<string>();
             foreach (var match in matches)
             {
                 commands = commandList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
@@ -110,11 +107,11 @@ namespace ZodFortress.Engine
             else if (orders.Any() && locations.Any())
             {
                 output.Order = orders.First();
+                output.Object = objects.First();
                 if (locations.Any())
                     output.Location = locations.First();
-                output.Object = objects.First();
             }
-
+            output.Success = true;
             return output;
         }
     }
