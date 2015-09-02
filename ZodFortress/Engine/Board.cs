@@ -18,6 +18,8 @@ namespace ZodFortress.Engine
             for (int i = 0; i < dimension.Width; i++)
                 for (int j = 0; j < dimension.Height; j++)
                     tempList.Add(defaultBlock);
+
+            content = tempList;
         }
         public Board(int width, int height, BoardBlock defaultBlock) : this(new Size(width, height), defaultBlock) { }
         public Board(Point maxSize, BoardBlock defaultBlock) : this(new Size(maxSize), defaultBlock) { }
