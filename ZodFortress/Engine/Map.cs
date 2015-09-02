@@ -58,6 +58,7 @@ namespace ZodFortress.Engine
             if (depth == 0)
                 throw new ArgumentException("depth");
 
+            this.Depth = depth;
             this.layers = Enumerable.Range(0, depth).Select(x => new Board(width, height, defaultBlock)).ToArray();
         }
 
