@@ -2,26 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ZodFortress.Engine.Units;
+using ZodFortress.Engine;
+using ZodFortress;
 
 namespace ZodFortressCLI
 {
     class Program
     {
+
         public static bool IsRuning = true;
+        private static readonly BoardBlock Grass = new BoardBlock(BlockType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
+        
         static void Main(string[] args)
         {
+
+            var map = new Map(100,100, 1, Grass);
+            var generator = new MapGenerator(map);
+            var player = new Player(new Point(50,50));
+
             Console.Title = "ZodFortress";
             while (IsRuning)
             {
-                Draw();
-                Update();
+                Draw(generator.Map, player);
+                Update(generator.Map, player);
             }
         }
 
-        static void Update()
+        static void Update(Map map, Player player)
         {
             // Handling output
             OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
@@ -31,7 +42,7 @@ namespace ZodFortressCLI
             Console.ReadLine();
         }
 
-        static void Draw()
+        static void Draw(Map map, Player player)
         {
             // Clear the screen
             Console.Clear();
@@ -130,15 +141,46 @@ namespace ZodFortressCLI
                 i++;
             }
             #endregion
+
+
+            //draw the viewport
+            DrawBlocks(map, player);
             Console.ResetColor();
 
             // Reset cursor position
             PlaceCursor(0, 0);
         }
+        static void DrawBlocks(Map map, Player player)
+        {
+            int px = player.Position.X - 16;
+            int py = player.Position.Y - 10;
+
+            int x = 0;
+            int y = 0;
+            while (x <= 33)
+            {
+                while (y<=21)
+                {
+                    PlaceCursor(x +1, y +2);
+                    Console.ForegroundColor = map[x + px, y + py, 0].FontColor;
+                    Console.BackgroundColor = map[x + px, y + py, 0].BackColor;
+                    Console.Write(map[x + px, y + py, 0].Character);
+                    y++;
+                }
+                x++;
+                y = 0;
+            }
+            x = 0;
+
+            PlaceCursor(17, 12);
+            Console.BackgroundColor = map[16 + px, 10 + py, 0].BackColor;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("H");
+        }
         static void OutputText(String Text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            var splText = Regex.Matches(Text, ".{1, 43}").Cast<Match>().Select(m => m.Value);
+            var splText = Regex.Matches(Text, ".{1,43}").Cast<Match>().Select(m => m.Value);
             int i = 0;
             foreach (var item in splText)
             {
