@@ -34,13 +34,13 @@ namespace ZodFortress.Engine
         {
             get
             {
-                int finalInputValue = x + (Size.Width - 1 * y);
+                int finalInputValue = x + ((Size.Width - 1) * y);
                 return content.ToArray()[finalInputValue];
             }
 
             set
             {
-                int finalInputValue = x + (Size.Width - 1 * y);
+                int finalInputValue = x + ((Size.Width - 1) * y);
                 List<BoardBlock> tempList = content.ToList();
                 tempList[finalInputValue] = value;
                 this.content = tempList;

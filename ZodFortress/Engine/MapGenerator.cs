@@ -34,6 +34,8 @@ namespace ZodFortress.Engine
         /// </summary>
         public void Generate(Board board)
         {
+
+
             // Fill the map with Grass -> The map is already full of grass by default
             //for (int i = 0; i < MapWidth; i++)
             //    for (int j = 0; j < MapHeight; j++)
@@ -51,6 +53,22 @@ namespace ZodFortress.Engine
                     else if (r == 1)
                         PlaceBlock(board, Rock, i, j);
                 }
+
+            PlaceHouse(board, WoodWall, Floor, 55, 50);
+            //int grass = 0;
+            //int tree = 0;
+            //int rock = 0;
+            //for (int i = 0; i < board.Size.Width; i++)
+            //    for (int j = 0; j < board.Size.Height; j++)
+            //    {
+            //        if (board[i, j] == Grass)
+            //            ++grass;
+            //        else if (board[i, j] == Rock)
+            //            ++rock;
+            //        else if (board[i, j] == Tree)
+            //            ++tree;
+            //    }
+            //Console.WriteLine("Grass: {0}, Tree: {1}, Rock: {2}", grass, tree, rock);
         }
 
         /// <summary>
@@ -89,7 +107,7 @@ namespace ZodFortress.Engine
         public void PlaceHouse(Board board, BoardBlock wallBlock, BoardBlock floorBlock, int x, int y)
         {
             PlaceSquare(board, floorBlock, new Point(x + 1, y + 1), 3);
-            PlaceRectangle(board, wallBlock, new Point(x, y), new Point(x + 3, y + 3));
+            PlaceRectangle(board, WoodWall, new Point(x, y), new Point(x + 4, y + 4));
             PlaceBlock(board, floorBlock, x + 2, y);
         }
 
@@ -102,13 +120,13 @@ namespace ZodFortress.Engine
         /// <param name="endingPoint">Ending point of the rectangle (lower right corner)</param>
         public void PlaceRectangle(Board board, BoardBlock block, Point startingPoint, Point endingPoint)
         {
-            for (int i = 0; i < startingPoint.X - endingPoint.X; i++)
+            for (int i = 0; i < endingPoint.X - startingPoint.X; i++)
             {
                 PlaceBlock(board, block, startingPoint.X + i, startingPoint.Y);
                 PlaceBlock(board, block, startingPoint.X + i, endingPoint.Y);
             }
 
-            for (int i = 0; i < startingPoint.Y - endingPoint.Y; i++)
+            for (int i = 0; i < endingPoint.Y - startingPoint.Y + 1; i++)
             {
                 PlaceBlock(board, block, startingPoint.X, startingPoint.Y + i);
                 PlaceBlock(board, block, endingPoint.X, startingPoint.Y + i);
