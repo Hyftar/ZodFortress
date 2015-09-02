@@ -16,11 +16,12 @@ namespace ZodFortress.Engine.Units
         public int Health { get; private set; }
         public Item OffensiveSlot { get; private set; }
         public Item DefensiveSlot { get; private set; }
-        public List<Item> Inventory { get; private set;}
+        public List<Item> Inventory { get; private set; }
         public int Level { get; private set; }
 
-        public Player(Point position)
+        public Player(Board board, Point position)
         {
+            this.CurrentBoard = board;
             this.IsAlive = true;
             this.Position = position;
             this.OffensiveSlot = null;
@@ -38,7 +39,7 @@ namespace ZodFortress.Engine.Units
         /// <returns>True if the attack is lethal to the player</returns>
         public bool Attack(int attackStrength)
         {
-            this.Health -= attackStrength - (int) Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
+            this.Health -= attackStrength - (int)Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
             return this.Health < 1;
         }
 
@@ -54,29 +55,33 @@ namespace ZodFortress.Engine.Units
             {
                 case MovementDirection.Up:
                     if (this.Position.Y - 1 < 0 || this.Position.Y - 1 >= this.CurrentBoard.Size.Height)
-                        if (!this.CurrentBoard[this.Position.X, this.Position.Y - 1].IsWalkable)
-                            return false;
+                        return false;
+                    if (!this.CurrentBoard[this.Position.X, this.Position.Y - 1].IsWalkable)
+                        return false;
                     this.Position = new Point(this.Position.X, this.Position.Y - 1);
                     return true;
 
                 case MovementDirection.Down:
                     if (this.Position.Y + 1 < 0 || this.Position.Y + 1 >= this.CurrentBoard.Size.Height)
-                        if (!this.CurrentBoard[this.Position.X, this.Position.Y + 1].IsWalkable)
-                            return false;
+                        return false;
+                    if (!this.CurrentBoard[this.Position.X, this.Position.Y + 1].IsWalkable)
+                        return false;
                     this.Position = new Point(this.Position.X, this.Position.Y + 1);
                     return true;
 
                 case MovementDirection.Left:
                     if (this.Position.X - 1 < 0 || this.Position.X - 1 >= this.CurrentBoard.Size.Width)
-                        if (!this.CurrentBoard[this.Position.X - 1, this.Position.Y].IsWalkable)
-                            return false;
+                        return false;
+                    if (!this.CurrentBoard[this.Position.X - 1, this.Position.Y].IsWalkable)
+                        return false;
                     this.Position = new Point(this.Position.X - 1, this.Position.Y);
                     return true;
 
                 case MovementDirection.Right:
                     if (this.Position.X + 1 < 0 || this.Position.X + 1 >= this.CurrentBoard.Size.Width)
-                        if (!this.CurrentBoard[this.Position.X + 1, this.Position.Y].IsWalkable)
-                            return false;
+                        return false;
+                    if (!this.CurrentBoard[this.Position.X + 1, this.Position.Y].IsWalkable)
+                        return false;
                     this.Position = new Point(this.Position.X + 1, this.Position.Y);
                     return true;
 

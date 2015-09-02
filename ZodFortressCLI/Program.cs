@@ -14,32 +14,36 @@ namespace ZodFortressCLI
     class Program
     {
 
-        public static bool IsRuning = true;
+        internal static bool IsRuning = true;
+        internal static Point CursorPosition = new Point(); // Will be used later.
         
         static void Main(string[] args)
         {
 
             var map = new Map(100,100, 1, MapGenerator.Grass);
             var generator = new MapGenerator(map);
-            var player = new Player(new Point(50,50));
+            var player = new Player(map.Layers.First(), new Point(50,50));
+            Draw(map, player);
+            Update(map, player);
 
             Console.Title = "ZodFortress";
 
             while (IsRuning)
             {
-                Draw(generator.Map, player);
-                Update(generator.Map, player);
+                Draw(map, player);
+                Update(map, player);
+                PlayerAction(map.Layers.First(), new CommandParser().Parse(Console.ReadLine()), player);
+                Console.ReadKey();
             }
         }
 
         static void Update(Map map, Player player)
         {
             // Handling output
-            OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
+            //OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
             // Handling input
             PlaceCursor(37, 2);
             Console.Write(">");
-            Console.ReadLine();
         }
 
         static void Draw(Map map, Player player)
@@ -53,17 +57,17 @@ namespace ZodFortressCLI
             Console.WriteLine("Welcome to ZodFortress - Now playing ");
             PlaceCursor(0, 1);
             Console.WriteLine("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
-            int iii = 0;
-            while (iii < 80)
+            int i = 0;
+            while (i < 80)
             {
-                PlaceCursor(iii, 24);
+                PlaceCursor(i, 24);
                 Console.Write(" ");
-                iii++;
+                i++;
             }
 
 
             #region VerticalHell
-            int i = 0;
+            i = 0;
             while (i < 23)
             {
                 if (i <= 9)
@@ -161,7 +165,7 @@ namespace ZodFortressCLI
             // Reset cursor position
             PlaceCursor(0, 0);
         }
-        static void DrawBlocks(Map map, Player player)
+        private static void DrawBlocks(Map map, Player player)
         {
             int px = player.Position.X - 16;
             int py = player.Position.Y - 10;
@@ -188,7 +192,7 @@ namespace ZodFortressCLI
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("H");
         }
-        static void OutputText(String Text)
+        private static void OutputText(String Text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             var splText = Regex.Matches(Text, ".{1,43}").Cast<Match>().Select(m => m.Value);
@@ -202,12 +206,12 @@ namespace ZodFortressCLI
             Console.ResetColor();
         }
 
-        static void PlaceCursor(int x, int y)
+        private static void PlaceCursor(int x, int y)
         {
             Console.SetCursorPosition(x, y);
         }
 
-        static void PlayerDead()
+        private void PlayerDead()
         {
             PlaceCursor(25, 14);
             Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -219,7 +223,123 @@ namespace ZodFortressCLI
             Console.Read();
         }
         #region InputEvent
+        private static bool PlayerAction(Board board, Command input, Player player)
+        {
+            if (!input.Success)
+            {
+                OutputText("This is not a valid command");
+                return false;
+            }
+            else if (input.GameCommand.Any())
+            {
+                switch (input.GameCommand)
+                {
+                    case "?":
+                    case "halp":
+                    case "help":
+                    case "wtf":
+                    case "fuck":
+                        OutputText("Commands must be composed of 3 keys { Command or order, object, location } see Github.com/Hyftar/ZodFortress/README.md for more details.");
+                        return false;
 
+                    case "exit":
+                    case "leave":
+                    case "quit":
+                    case "end":
+                        Environment.Exit(0);
+                        break;
+
+                    case "kill":
+                    case "destroy":
+                    case "attack":
+                        switch (input.Location)
+                        {
+                            case "up":
+                            case "north":
+                            case "n":
+                            case "forward":
+                                break;
+                            default:
+                                OutputText("Location not recognized.");
+                                return false; ;
+                        }
+                        break;
+
+                    default:
+                        OutputText("Command not recognized.");
+                        return false;
+                }
+            }
+            else if (input.Order.Any() && input.Location.Any())
+            {
+                switch (input.Order)
+                {
+                    case "move":
+                    case "sprint":
+                    case "step":
+                    case "maneuver":
+                    case "walk":
+                    case "run":
+                        switch (input.Location)
+                        {
+                            case "up":
+                            case "forward":
+                            case "north":
+                            case "n":
+                                if (player.Move(MovementDirection.Up))
+                                {
+                                    OutputText("Moved up.");
+                                    return true;
+                                }
+                                else
+                                    OutputText("Failed to move up.");
+                                return false;
+                            case "down":
+                            case "backward":
+                            case "south":
+                            case "s":
+                                if (player.Move(MovementDirection.Down))
+                                {
+                                    OutputText("Moved down.");
+                                    return true;
+                                }
+                                else
+                                    OutputText("Failed to move down.");
+                                return false;
+                            case "left":
+                            case "w":
+                            case "west":
+                                if (player.Move(MovementDirection.Left))
+                                {
+                                    OutputText("Moved left.");
+                                    return true;
+                                }
+                                else
+                                    OutputText("Failed to move left.");
+                                return false;
+                            case "right":
+                            case "east":
+                            case "e":
+                                if (player.Move(MovementDirection.Right))
+                                {
+                                    OutputText("Moved right.");
+                                    return true;
+                                }
+                                else
+                                    OutputText("Failed to move right.");
+                                return false;
+                            default:
+                                OutputText("Location not recognized.");
+                                return false;
+                        }
+                    default:
+                        return false;
+                }
+
+            }
+
+            return false;
+        }
         #endregion
     }
 }

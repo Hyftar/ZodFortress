@@ -6,6 +6,13 @@ namespace ZodFortress.Engine
 {
     public class CommandParser
     {
+        public Command LastCommand { get; private set; }
+        public CommandParser() { }
+        public CommandParser(string input) : this()
+        {
+            Parse(input);
+        }
+
         private static readonly Regex wordSequence = new Regex(@"\s*([A-Za-z]+)\s*");
         private static readonly string[] commandList = new string[]
                                                         {
@@ -24,8 +31,6 @@ namespace ZodFortress.Engine
         private static readonly string[] orderList = new string[]
                                                         {
                                                             // TODO: Add orders to list.
-                                                            "exit",
-                                                            "leave",
                                                             "kill",
                                                             "attack",
                                                             "destroy",
@@ -39,6 +44,7 @@ namespace ZodFortress.Engine
                                                             "wield",
                                                             "move",
                                                             "advance",
+                                                            "run",
                                                             "step",
                                                             "maneuver",
                                                             "shift",
@@ -62,6 +68,7 @@ namespace ZodFortress.Engine
                                                            "east",
                                                            "west",
                                                            "forward",
+                                                           "backward",
                                                            "up",
                                                            "down",
                                                            "left",
@@ -71,17 +78,13 @@ namespace ZodFortress.Engine
                                                            "w",
                                                            "s"
                                                         };
-        public CommandParser(string input)
-        {
-            Parse(input);
-        }
-
+        
         /// <summary>
         /// Used to parse the string commands into object commands.
         /// </summary>
         /// <param name="input">Input to parse</param>
         /// <returns>Sucess, command, order, object, location</returns>
-        private Command Parse(string input)
+        public Command Parse(string input)
         {
             var matches = wordSequence.Matches(input).OfType<Match>().ToArray();
             var commands = new List<string>();
@@ -90,28 +93,29 @@ namespace ZodFortress.Engine
             var locations = new List<string>();
             foreach (var match in matches)
             {
-                commands = commandList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
-                orders = orderList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
-                objects = objectList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
-                locations = locationList.Where(x => x == match.Groups[1].Value.ToLower()).ToList();
+                commands.AddRange(commandList.Where(x => x == match.Groups[1].Value.ToLower()));
+                orders.AddRange(orderList.Where(x => x == match.Groups[1].Value.ToLower()));
+                objects.AddRange(objectList.Where(x => x == match.Groups[1].Value.ToLower()).ToList());
+                locations.AddRange(locationList.Where(x => x == match.Groups[1].Value.ToLower()).ToList());
             }
 
             var output = new Command();
 
-            if (commands.Count > 1 || orders.Count > 1 || locations.Count > 1 || objects.Count > 1)
-                return output;
-
-            else if (commands.Any())
+            if (commands.Any())
+            {
                 output.GameCommand = commands.First();
+                output.Success = true;
+            }
 
             else if (orders.Any() && locations.Any())
             {
                 output.Order = orders.First();
-                output.Object = objects.First();
                 if (locations.Any())
                     output.Location = locations.First();
+                output.Success = true;
             }
-            output.Success = true;
+
+            this.LastCommand = output;
             return output;
         }
     }
