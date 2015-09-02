@@ -17,15 +17,15 @@ namespace ZodFortress.Engine
             this.Map = map;
         }
 
-        private static readonly BoardBlock Rock = new BoardBlock(BlockType.Rock, 'o', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
-        private static readonly BoardBlock Grass = new BoardBlock(BlockType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
-        private static readonly BoardBlock Water = new BoardBlock(BlockType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000, false);
-        private static readonly BoardBlock Lava = new BoardBlock(BlockType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000, false);
-        private static readonly BoardBlock Road = new BoardBlock(BlockType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10, true);
-        private static readonly BoardBlock StoneWall = new BoardBlock(BlockType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5, false);
-        private static readonly BoardBlock WoodWall = new BoardBlock(BlockType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
-        private static readonly BoardBlock Tree = new BoardBlock(BlockType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
-        private static readonly BoardBlock Floor = new BoardBlock(BlockType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
+        public static readonly BoardBlock Rock = new BoardBlock(BlockType.Rock, 'o', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
+        public static readonly BoardBlock Grass = new BoardBlock(BlockType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
+        public static readonly BoardBlock Water = new BoardBlock(BlockType.Water, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, 1000, 1000, false);
+        public static readonly BoardBlock Lava = new BoardBlock(BlockType.Lava, '~', ConsoleColor.Red, ConsoleColor.Yellow, 1000, 1000, false);
+        public static readonly BoardBlock Road = new BoardBlock(BlockType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10, true);
+        public static readonly BoardBlock StoneWall = new BoardBlock(BlockType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5, false);
+        public static readonly BoardBlock WoodWall = new BoardBlock(BlockType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
+        public static readonly BoardBlock Tree = new BoardBlock(BlockType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
+        public static readonly BoardBlock Floor = new BoardBlock(BlockType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
         
         /// <summary>
         /// Populates a board with a random configuration.
