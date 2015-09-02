@@ -15,16 +15,16 @@ namespace ZodFortressCLI
     {
 
         public static bool IsRuning = true;
-        private static readonly BoardBlock Grass = new BoardBlock(BlockType.Grass, ' ', ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, 1, 1, true);
         
         static void Main(string[] args)
         {
 
-            var map = new Map(100,100, 1, Grass);
+            var map = new Map(100,100, 1, MapGenerator.Grass);
             var generator = new MapGenerator(map);
             var player = new Player(new Point(50,50));
 
             Console.Title = "ZodFortress";
+
             while (IsRuning)
             {
                 Draw(generator.Map, player);
@@ -141,6 +141,17 @@ namespace ZodFortressCLI
                 i++;
             }
             #endregion
+
+
+            Console.ResetColor();
+            PlaceCursor(75, 0);
+            Console.Write("N");
+            PlaceCursor(73, 1);
+            Console.Write("W");
+            PlaceCursor(77, 1);
+            Console.Write("E");
+            PlaceCursor(75, 2);
+            Console.Write("S");
 
 
             //draw the viewport
