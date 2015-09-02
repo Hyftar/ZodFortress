@@ -26,7 +26,7 @@ namespace ZodFortress.Engine
         public static readonly BoardBlock Road = new BoardBlock(BlockType.Road, ' ', ConsoleColor.DarkYellow, ConsoleColor.DarkYellow, 10, 10, true);
         public static readonly BoardBlock StoneWall = new BoardBlock(BlockType.StoneWall, ' ', ConsoleColor.Gray, ConsoleColor.Gray, 8, 5, false);
         public static readonly BoardBlock WoodWall = new BoardBlock(BlockType.WoodWall, ' ', ConsoleColor.DarkRed, ConsoleColor.DarkRed, 5, 5, false);
-        public static readonly BoardBlock Tree = new BoardBlock(BlockType.Tree, 'Ϫ', ConsoleColor.DarkGreen, ConsoleColor.Green, 1, 2, false);
+        public static readonly BoardBlock Tree = new BoardBlock(BlockType.Tree, 'Y', ConsoleColor.DarkGreen, ConsoleColor.DarkRed, 1, 2, false);
         public static readonly BoardBlock Floor = new BoardBlock(BlockType.Floor, ' ', ConsoleColor.DarkMagenta, ConsoleColor.DarkMagenta, 3, 4, false);
         
         /// <summary>
