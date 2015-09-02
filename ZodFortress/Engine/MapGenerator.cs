@@ -15,6 +15,8 @@ namespace ZodFortress.Engine
         public MapGenerator(Map map)
         {
             this.Map = map;
+            for (int i = 0; i < map.Depth; i++)
+                this.Generate(map[i]);
         }
 
         public static readonly BoardBlock Rock = new BoardBlock(BlockType.Rock, 'o', ConsoleColor.DarkGreen, ConsoleColor.Gray, 5, 3, false);
