@@ -54,9 +54,9 @@ namespace ZodFortressCLI
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             PlaceCursor(0, 0);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Welcome to ZodFortress - Now playing ");
+            Console.WriteLine("Welcome to ZodFortress - Now playing");
             PlaceCursor(0, 1);
-            Console.WriteLine("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ ");
+            Console.WriteLine("0123456789ABCDEFGHIJKLMNOPQRSTUVWXY ");
             int i = 0;
             while (i < 80)
             {
@@ -66,85 +66,25 @@ namespace ZodFortressCLI
             }
 
 
-            #region VerticalHell
-            i = 0;
-            while (i < 23)
+            i = 1;
+            char letter = 'A';
+            while (i < 24)
             {
-                if (i <= 9)
-                {
-                    PlaceCursor(0, i + 1);
+                PlaceCursor(0, i);
+                if (i <= 10)
                     Console.Write(i.ToString());
-                }
                 else
-                {
-                    PlaceCursor(0, i + 1);
-                    switch (i)
-                    {
-                        case 10:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("A");
-                            break;
-                        case 11:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("B");
-                            break;
-                        case 12:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("C");
-                            break;
-                        case 13:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("D");
-                            break;
-                        case 14:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("E");
-                            break;
-                        case 15:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("F");
-                            break;
-                        case 16:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("G");
-                            break;
-                        case 17:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("H");
-                            break;
-                        case 18:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("I");
-                            break;
-                        case 19:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("J");
-                            break;
-                        case 20:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("K");
-                            break;
-                        case 21:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("L");
-                            break;
-                        case 22:
-                            PlaceCursor(0, i + 1);
-                            Console.Write("M");
-                            break;
-                    }
-                }
+                    Console.Write(letter++);
                 i++;
             }
             
-            i = 0;
-            while (i < 22)
+            i = 2;
+            while (i < 24)
             {
-                PlaceCursor(36, i + 2);
+                PlaceCursor(35, i);
                 Console.Write("|");
                 i++;
             }
-            #endregion
 
 
             Console.ResetColor();
@@ -234,7 +174,6 @@ namespace ZodFortressCLI
             {
                 switch (input.GameCommand)
                 {
-                    case "?":
                     case "halp":
                     case "help":
                     case "wtf":
