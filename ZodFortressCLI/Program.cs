@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ZodFortress.Engine.Units;
 using ZodFortress.Engine;
-using ZodFortress;
 
 namespace ZodFortressCLI
 {
-    class Program
+    internal class Program
     {
 
         internal static bool IsRuning = true;
@@ -39,8 +36,9 @@ namespace ZodFortressCLI
 
         static void Update(Map map, Player player)
         {
-            // Handling output
-            //OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks ");
+            // Test outputs
+            //OutputText("aaaaa bbbbb ccccc ddddd eeeee ffffff ggggggg hhhhhhhhhhh iiiiiiii jjjjjjjj kkkkkkkkkkkk lllllll");
+            //OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffeer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks That Flesh is heir to? 'Tis a consummation Devoutly to be wished. To die, to sleep, ");
             // Handling input
             PlaceCursor(37, 2);
             Console.Write(">");
@@ -70,6 +68,8 @@ namespace ZodFortressCLI
             char letter = 'A';
             while (i < 24)
             {
+                PlaceCursor(35, i + 1);
+                Console.Write("|");
                 PlaceCursor(0, i);
                 if (i <= 10)
                     Console.Write(i.ToString());
@@ -78,15 +78,6 @@ namespace ZodFortressCLI
                 i++;
             }
             
-            i = 2;
-            while (i < 24)
-            {
-                PlaceCursor(35, i);
-                Console.Write("|");
-                i++;
-            }
-
-
             Console.ResetColor();
             PlaceCursor(75, 0);
             Console.Write("N");
@@ -114,9 +105,9 @@ namespace ZodFortressCLI
             int y = 0;
             while (x <= 33)
             {
-                while (y<=21)
+                while (y <= 21)
                 {
-                    PlaceCursor(x +1, y +2);
+                    PlaceCursor(x + 1, y + 2);
                     Console.ForegroundColor = map[x + px, y + py, 0].FontColor;
                     Console.BackgroundColor = map[x + px, y + py, 0].BackColor;
                     Console.Write(map[x + px, y + py, 0].Character);
@@ -135,13 +126,30 @@ namespace ZodFortressCLI
         private static void OutputText(String Text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            var splText = Regex.Matches(Text, ".{1,43}").Cast<Match>().Select(m => m.Value);
+            int lineLength = 0;
+            string line = string.Empty;
+            var splText = Regex.Matches(Text, @"\s*([^\s]+)\s*").Cast<Match>().Select(m => m.Groups[1].Value);
             int i = 0;
             foreach (var item in splText)
             {
-                PlaceCursor(37, 3 + i);
-                Console.Write(item);
-                i++;
+                lineLength += item.Length + 1;
+                if (lineLength < 44)
+                    line += item + " ";
+
+                else
+                {
+                    PlaceCursor(37, 3 + i);
+                    Console.Write(line.Trim());
+                    lineLength = item.Length + 1;
+                    line = string.Empty + item + " ";
+                    i++;
+                }
+
+                if (item == splText.Last())
+                {
+                    PlaceCursor(37, 3 + i);
+                    Console.Write(line.Trim());
+                }
             }
             Console.ResetColor();
         }
@@ -217,6 +225,7 @@ namespace ZodFortressCLI
                     case "sprint":
                     case "step":
                     case "maneuver":
+                    case "advance":
                     case "walk":
                     case "run":
                         switch (input.Location)
