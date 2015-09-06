@@ -18,7 +18,6 @@ namespace ZodFortress.Engine
                                                         {
                                                             // TODO: Add commands to list.
                                                             "help",
-                                                            "?",
                                                             "halp",
                                                             "fuck",
                                                             "wtf",
@@ -95,8 +94,8 @@ namespace ZodFortress.Engine
             {
                 commands.AddRange(commandList.Where(x => x == match.Groups[1].Value.ToLower()));
                 orders.AddRange(orderList.Where(x => x == match.Groups[1].Value.ToLower()));
-                objects.AddRange(objectList.Where(x => x == match.Groups[1].Value.ToLower()).ToList());
-                locations.AddRange(locationList.Where(x => x == match.Groups[1].Value.ToLower()).ToList());
+                objects.AddRange(objectList.Where(x => x == match.Groups[1].Value.ToLower()));
+                locations.AddRange(locationList.Where(x => x == match.Groups[1].Value.ToLower()));
             }
 
             var output = new Command();
