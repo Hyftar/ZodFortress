@@ -18,6 +18,9 @@ namespace ZodFortress.Engine.Units
         public Item DefensiveSlot { get; private set; }
         public List<Item> Inventory { get; private set; }
         public int Level { get; private set; }
+        public int Experience { get; private set; }
+
+        public readonly int[] ExperienceChart = new int[100];
 
         public Player(Board board, Point position)
         {
@@ -30,6 +33,8 @@ namespace ZodFortress.Engine.Units
             this.Level = 1;
             this.AttackStat = 1;
             this.DefenseStat = 1;
+            int index = 1;
+            ExperienceChart = ExperienceChart.Select(x => (int)Math.Round(Math.Log(Math.Pow(index, 2)) * Math.Pow(index++, 2))).ToArray();       
         }
 
         /// <summary>
@@ -92,19 +97,37 @@ namespace ZodFortress.Engine.Units
 
         public void EquipItem(Item item, EquipSlot slot)
         {
-            switch (slot)
+            var equipSlot = slot == EquipSlot.Attack ? this.OffensiveSlot : this.DefensiveSlot; 
+            this.Inventory.Remove(item);
+            this.Inventory.Add(equipSlot);
+            equipSlot = item;            
+        }
+
+        public void GiveExperience(int experience)
+        {
+            this.Experience += experience;
+            int currentLevel = this.Level;
+            int expectedLevel = 0;
+
+            // Checks if the player should be higher level and levels the player if needed.
+            foreach (var item in ExperienceChart)
             {
-                case EquipSlot.Attack:
-                    this.Inventory.Remove(item);
-                    this.Inventory.Add(this.OffensiveSlot);
-                    this.OffensiveSlot = item;
-                    return;
-                case EquipSlot.Defense:
-                    this.Inventory.Remove(item);
-                    this.Inventory.Add(this.DefensiveSlot);
-                    this.DefensiveSlot = item;
-                    return;
+                if (this.Experience < item)
+                    break;
+                else
+                    ++expectedLevel;
             }
+
+            for (int i = 0; i < expectedLevel - currentLevel; i++)
+                LevelUp();
+        }
+
+        private void LevelUp()
+        {
+            this.Level++;
+            this.AttackStat++;
+            this.DefenseStat++;
+            this.Health += 5;
         }
     }
 }
