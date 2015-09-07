@@ -17,8 +17,9 @@ namespace ZodFortress.Engine.Units
         public char Character { get; private set; }
         public ConsoleColor FontColor { get; private set; }
         public MobType Race { get; private set; }
+        public int Experience { get; private set; }
 
-        public Mob(string name, Point position, Item offensiveItem, Item defensiveItem, int health, int attackStat, int defensiveStat, char character, ConsoleColor fontColor, MobType race)
+        public Mob(string name, Point position, Item offensiveItem, Item defensiveItem, int health, int attackStat, int defensiveStat, int experience, char character, ConsoleColor fontColor, MobType race)
         {
             this.Name = name;
             this.Position = position;
@@ -26,6 +27,7 @@ namespace ZodFortress.Engine.Units
             this.DefensiveSlot = defensiveItem;
             this.FontColor = fontColor;
             this.Health = health;
+            this.Experience = experience;
             this.Character = character;
             this.Race = race;
             this.AttackStat = attackStat;
