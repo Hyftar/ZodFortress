@@ -38,14 +38,26 @@ namespace ZodFortress.Engine.Units
         }
 
         /// <summary>
+        /// Attacks the specified mob
+        /// </summary>
+        /// <param name="mob"></param>
+        /// <param name="attackStrength"></param>
+        /// <returns></returns>
+        public Tuple<int, bool> AttackMob(Mob mob, int attackStrength)
+        {
+            return Tuple.Create(mob.ReceiveDamage(attackStrength + (int)Math.Floor(this.AttackStat * (this.OffensiveSlot == null ? 1 : this.OffensiveSlot.AttackMultiplier))), mob.Health < 1);
+        }
+
+        /// <summary>
         /// Attacks the player with the specified strength.
         /// </summary>
         /// <param name="attackStrength">Strength of the attack</param>
         /// <returns>True if the attack is lethal to the player</returns>
-        public bool Attack(int attackStrength)
+        public int ReceiveDamage(int attackStrength)
         {
-            this.Health -= attackStrength - (int)Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
-            return this.Health < 1;
+            int damageReceived = attackStrength - (int)Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
+            this.Health -= damageReceived;
+            return damageReceived;
         }
 
         /// <summary>
