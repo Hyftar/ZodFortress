@@ -1,7 +1,7 @@
 ﻿namespace ZodFortress.Engine.Units
 {
     /// <summary>
-    /// Mob types.
+    /// Block type.
     /// </summary>
     public enum BlockType
     {
