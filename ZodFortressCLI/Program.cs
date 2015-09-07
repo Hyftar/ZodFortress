@@ -10,9 +10,7 @@ namespace ZodFortressCLI
 {
     internal class Program
     {
-
         internal static bool IsRuning = true;
-        internal static Point CursorPosition = new Point(); // Will be used later.
         
         static void Main(string[] args)
         {
@@ -134,14 +132,14 @@ namespace ZodFortressCLI
             {
                 lineLength += item.Length + 1;
                 if (lineLength < 44)
-                    line += item + " ";
+                    line += item + '\x20';
 
                 else
                 {
                     PlaceCursor(37, 3 + i);
                     Console.Write(line.Trim());
                     lineLength = item.Length + 1;
-                    line = string.Empty + item + " ";
+                    line = string.Empty + item + '\x20';
                     i++;
                 }
 
@@ -195,23 +193,7 @@ namespace ZodFortressCLI
                     case "end":
                         Environment.Exit(0);
                         break;
-
-                    case "kill":
-                    case "destroy":
-                    case "attack":
-                        switch (input.Location)
-                        {
-                            case "up":
-                            case "north":
-                            case "n":
-                            case "forward":
-                                break;
-                            default:
-                                OutputText("Location not recognized.");
-                                return false; ;
-                        }
-                        break;
-
+                    // ADD GAME COMMANDS CASES HERE.
                     default:
                         OutputText("Command not recognized.");
                         return false;
@@ -280,6 +262,8 @@ namespace ZodFortressCLI
                                 OutputText("Location not recognized.");
                                 return false;
                         }
+
+                    // ADD ORDER CASES HERE.
                     default:
                         return false;
                 }
