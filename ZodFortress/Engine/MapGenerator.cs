@@ -34,14 +34,7 @@ namespace ZodFortress.Engine
         /// </summary>
         public void Generate(Board board)
         {
-
-
-            // Fill the map with Grass -> The map is already full of grass by default
-            //for (int i = 0; i < MapWidth; i++)
-            //    for (int j = 0; j < MapHeight; j++)
-            //        PlaceBlock(Grass, i, j);
-
-            // Fill the map with Trees
+            // Fills the map with Trees
             Random rng = new Random();
             int r = 0;
             for (int i = 0; i < board.Size.Width; i++)
@@ -55,20 +48,6 @@ namespace ZodFortress.Engine
                 }
 
             PlaceHouse(board, WoodWall, Floor, 55, 50);
-            //int grass = 0;
-            //int tree = 0;
-            //int rock = 0;
-            //for (int i = 0; i < board.Size.Width; i++)
-            //    for (int j = 0; j < board.Size.Height; j++)
-            //    {
-            //        if (board[i, j] == Grass)
-            //            ++grass;
-            //        else if (board[i, j] == Rock)
-            //            ++rock;
-            //        else if (board[i, j] == Tree)
-            //            ++tree;
-            //    }
-            //Console.WriteLine("Grass: {0}, Tree: {1}, Rock: {2}", grass, tree, rock);
         }
 
         /// <summary>
