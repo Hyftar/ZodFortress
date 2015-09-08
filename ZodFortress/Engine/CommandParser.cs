@@ -109,8 +109,7 @@ namespace ZodFortress.Engine
             else if (orders.Any() && locations.Any())
             {
                 output.Order = orders.First();
-                if (locations.Any())
-                    output.Location = locations.First();
+                output.Location = locations.First();
                 output.Success = true;
             }
 
