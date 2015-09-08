@@ -37,6 +37,7 @@ namespace ZodFortressCLI
             // Test outputs
             //OutputText("aaaaa bbbbb ccccc ddddd eeeee ffffff ggggggg hhhhhhhhhhh iiiiiiii jjjjjjjj kkkkkkkkkkkk lllllll");
             //OutputText("To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffeer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and by a sleep to say we end The heart-ache and the thousand natural shocks That Flesh is heir to? 'Tis a consummation Devoutly to be wished. To die, to sleep, ");
+            //OutputText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             // Handling input
             PlaceCursor(37, 2);
             Console.Write(">");
@@ -134,13 +135,27 @@ namespace ZodFortressCLI
                 if (lineLength < 44)
                     line += item + '\x20';
 
+                else if (item.Length >= 44)
+                {
+                    string item1 = item.Substring(0, 42) + '-';
+                    string item2 = item.Substring(42, item.Length - 42);
+                    if (line != string.Empty)
+                    {
+                        PlaceCursor(37, 3 + i++);
+                        Console.Write(line.Trim());
+                    }
+                    PlaceCursor(37, 3 + i++);
+                    Console.Write(item1);
+                    line = item2 + '\x20';
+                    lineLength = item2.Length + 1;
+                }
+
                 else
                 {
-                    PlaceCursor(37, 3 + i);
+                    PlaceCursor(37, 3 + i++);
                     Console.Write(line.Trim());
                     lineLength = item.Length + 1;
-                    line = string.Empty + item + '\x20';
-                    i++;
+                    line = item + '\x20';
                 }
 
                 if (item == splText.Last())
