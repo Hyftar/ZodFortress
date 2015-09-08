@@ -11,7 +11,8 @@ namespace ZodFortressCLI
     internal class Program
     {
         internal static bool IsRuning = true;
-        
+
+        [STAThread]
         static void Main(string[] args)
         {
 
@@ -40,7 +41,7 @@ namespace ZodFortressCLI
             //OutputText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             // Handling input
             PlaceCursor(37, 2);
-            Console.Write(">");
+            Console.Write('>');
         }
 
         static void Draw(Map map, Player player)
@@ -58,17 +59,16 @@ namespace ZodFortressCLI
             while (i < 80)
             {
                 PlaceCursor(i, 24);
-                Console.Write(" ");
+                Console.Write('\x20');
                 i++;
             }
-
 
             i = 1;
             char letter = 'A';
             while (i < 24)
             {
                 PlaceCursor(35, i + 1);
-                Console.Write("|");
+                Console.Write('|');
                 PlaceCursor(0, i);
                 if (i <= 10)
                     Console.Write(i.ToString());
@@ -79,13 +79,13 @@ namespace ZodFortressCLI
             
             Console.ResetColor();
             PlaceCursor(75, 0);
-            Console.Write("N");
+            Console.Write('N');
             PlaceCursor(73, 1);
-            Console.Write("W");
+            Console.Write('W');
             PlaceCursor(77, 1);
-            Console.Write("E");
+            Console.Write('E');
             PlaceCursor(75, 2);
-            Console.Write("S");
+            Console.Write('S');
 
 
             //draw the viewport
@@ -120,7 +120,7 @@ namespace ZodFortressCLI
             PlaceCursor(17, 12);
             Console.BackgroundColor = map[16 + px, 10 + py, 0].BackColor;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("H");
+            Console.Write('H');
         }
         private static void OutputText(String Text)
         {
@@ -199,7 +199,8 @@ namespace ZodFortressCLI
                     case "help":
                     case "wtf":
                     case "fuck":
-                        OutputText("Commands must be composed of 3 keys { Command or order, object, location } see Github.com/Hyftar/ZodFortress/README.md for more details.");
+                        System.Windows.Forms.Clipboard.SetText("https://github.com/Hyftar/ZodFortress/blob/master/README.md");
+                        OutputText("Commands must be composed of 3 keys { Command or order, object, location } see https://github.com/Hyftar/ZodFortress/blob/master/README.md for more details. The url was copied to the clipboard.");
                         return false;
 
                     case "exit":
