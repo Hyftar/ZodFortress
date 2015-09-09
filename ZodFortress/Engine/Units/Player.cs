@@ -31,6 +31,7 @@ namespace ZodFortress.Engine.Units
             this.Level = 1;
             this.AttackStat = 1;
             this.DefenseStat = 1;
+            this.Inventory = new List<Item>();
             int index = 1;
             ExperienceChart = ExperienceChart.Select(x => (int)Math.Round(Math.Log(Math.Pow(index, 2)) * Math.Pow(index++, 2))).ToArray();       
         }
@@ -113,10 +114,21 @@ namespace ZodFortress.Engine.Units
         public void EquipItem(Item item, EquipSlot slot)
         {
             if (!this.Inventory.Contains(item)) return;
-            var equipSlot = slot == EquipSlot.Attack ? this.OffensiveSlot : this.DefensiveSlot;
             this.Inventory.Remove(item);
-            this.Inventory.Add(equipSlot);
-            equipSlot = item;
+
+            switch (slot)
+            {
+                case EquipSlot.Attack:
+                    this.Inventory.Add(this.OffensiveSlot);
+                    this.OffensiveSlot = item;
+                    break;
+                case EquipSlot.Defense:
+                    this.Inventory.Add(this.DefensiveSlot);
+                    this.DefensiveSlot = item;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>

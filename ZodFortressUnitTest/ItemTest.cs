@@ -29,9 +29,9 @@ namespace ZodFortressUnitTest
             Trace.WriteLine("Creating default mob...");
             sword = new Item("Test sword", 5, 10, 1.5, 1, EquipSlot.Attack);
 
-            Assert.IsInstanceOfType(map.GetType(), typeof(Map), "Failed to initialize map.");
-            Assert.IsInstanceOfType(player.GetType(), typeof(Player), "Failed to initialize player.");
-            Assert.IsInstanceOfType(sword.GetType(), typeof(Item), "Failed to initialize item.");
+            Assert.IsInstanceOfType(map, typeof(Map), "Failed to initialize map.");
+            Assert.IsInstanceOfType(player, typeof(Player), "Failed to initialize player.");
+            Assert.IsInstanceOfType(sword, typeof(Item), "Failed to initialize item.");
         }
 
         [TestMethod]
