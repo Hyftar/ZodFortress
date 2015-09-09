@@ -47,6 +47,7 @@ namespace ZodFortress.Engine
                                                             "step",
                                                             "maneuver",
                                                             "shift",
+                                                            "sprint",
                                                             "travel"
                                                         };
 

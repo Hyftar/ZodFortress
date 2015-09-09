@@ -53,7 +53,7 @@ namespace ZodFortress.Engine.Units
         /// <returns>True if the attack killed the mob</returns>
         public int ReceiveDamage(int attackStrength)
         {
-            int damageReceived = attackStrength - (int)Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
+            int damageReceived = attackStrength - (int)Math.Floor(this.DefenseStat * (this.DefensiveSlot == null ? 1 : this.DefensiveSlot.DefenseMultiplier));
             this.Health -= damageReceived;
             return damageReceived;
         }

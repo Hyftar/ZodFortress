@@ -27,8 +27,6 @@ namespace ZodFortress.Engine.Units
             this.CurrentBoard = board;
             this.IsAlive = true;
             this.Position = position;
-            this.OffensiveSlot = null;
-            this.DefensiveSlot = null;
             this.Health = 10;
             this.Level = 1;
             this.AttackStat = 1;
@@ -42,7 +40,7 @@ namespace ZodFortress.Engine.Units
         /// </summary>
         /// <param name="mob"></param>
         /// <param name="attackStrength"></param>
-        /// <returns></returns>
+        /// <returns>Tuple containing the amount of damage dealt to the mob and if the attack killed the mob or not</returns>
         public Tuple<int, bool> AttackMob(Mob mob, int attackStrength)
         {
             return Tuple.Create(mob.ReceiveDamage(attackStrength + (int)Math.Floor(this.AttackStat * (this.OffensiveSlot == null ? 1 : this.OffensiveSlot.AttackMultiplier))), mob.Health < 1);
@@ -52,7 +50,7 @@ namespace ZodFortress.Engine.Units
         /// Attacks the player with the specified strength.
         /// </summary>
         /// <param name="attackStrength">Strength of the attack</param>
-        /// <returns>True if the attack is lethal to the player</returns>
+        /// <returns>The amnount of damage dealt to the player.</returns>
         public int ReceiveDamage(int attackStrength)
         {
             int damageReceived = attackStrength - (int)Math.Floor(this.DefenseStat * this.DefensiveSlot.DefenseMultiplier);
@@ -65,7 +63,7 @@ namespace ZodFortress.Engine.Units
         /// </summary>
         /// <param name="board">The board in which the player currently is</param>
         /// <param name="direction"></param>
-        /// <returns></returns>
+        /// <returns>If the player was able to move at that space or not</returns>
         public bool Move(MovementDirection direction)
         {
             switch (direction)
@@ -107,14 +105,24 @@ namespace ZodFortress.Engine.Units
             }
         }
 
+        /// <summary>
+        /// Equips an item on the specified item slot.
+        /// </summary>
+        /// <param name="item">Item to be equiped</param>
+        /// <param name="slot">Slot in which the item will be equiped</param>
         public void EquipItem(Item item, EquipSlot slot)
         {
-            var equipSlot = slot == EquipSlot.Attack ? this.OffensiveSlot : this.DefensiveSlot; 
+            if (!this.Inventory.Contains(item)) return;
+            var equipSlot = slot == EquipSlot.Attack ? this.OffensiveSlot : this.DefensiveSlot;
             this.Inventory.Remove(item);
             this.Inventory.Add(equipSlot);
-            equipSlot = item;            
+            equipSlot = item;
         }
 
+        /// <summary>
+        /// Awards experience to the player and level him up if needed
+        /// </summary>
+        /// <param name="experience">Amount of experience to be awarded</param>
         public void GiveExperience(int experience)
         {
             this.Experience += experience;
@@ -123,13 +131,10 @@ namespace ZodFortress.Engine.Units
 
             // Checks if the player should be higher level and levels the player if needed.
             foreach (var item in ExperienceChart)
-            {
                 if (this.Experience < item)
                     break;
                 else
                     ++expectedLevel;
-            }
-
             for (int i = 0; i < expectedLevel - currentLevel; i++)
                 LevelUp();
         }

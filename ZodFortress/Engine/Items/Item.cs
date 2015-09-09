@@ -20,12 +20,12 @@
         /// <summary>
         /// Attack multiplier of the item.
         /// </summary>
-        public float AttackMultiplier { get; private set; }
+        public double AttackMultiplier { get; private set; }
 
         /// <summary>
         /// Defense multiplier of the item.
         /// </summary>
-        public float DefenseMultiplier { get; private set; }
+        public double DefenseMultiplier { get; private set; }
 
         /// <summary>
         /// The EquipSlot in which the item must be equiped in.
@@ -41,7 +41,7 @@
         /// <param name="attackMultiplier">Attack multiplier of the item</param>
         /// <param name="defenseMultiplier">Defense multiplier of the item</param>
         /// <param name="itemSlot">The EquipSlot in which the item must be equiped in.</param>
-        public Item(string name, int sellValue, int buyValue, float attackMultiplier, float defenseMultiplier, EquipSlot itemSlot)
+        public Item(string name, int sellValue, int buyValue, double attackMultiplier, double defenseMultiplier, EquipSlot itemSlot)
         {
             this.Name = name;
             this.SellValue = sellValue;

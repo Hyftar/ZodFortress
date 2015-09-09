@@ -63,13 +63,13 @@ namespace ZodFortressCLI
                 i++;
             }
 
-            i = 1;
+            i = 0;
             char letter = 'A';
-            while (i < 24)
+            while (i < 23)
             {
                 PlaceCursor(35, i + 1);
                 Console.Write('|');
-                PlaceCursor(0, i);
+                PlaceCursor(0, i + 1);
                 if (i <= 10)
                     Console.Write(i.ToString());
                 else
@@ -224,6 +224,7 @@ namespace ZodFortressCLI
                     case "step":
                     case "maneuver":
                     case "advance":
+                    case "shift":
                     case "walk":
                     case "run":
                         switch (input.Location)

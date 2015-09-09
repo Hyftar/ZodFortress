@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZodFortress.Engine.Units;
 
 namespace ZodFortress.Engine
@@ -15,7 +11,7 @@ namespace ZodFortress.Engine
         public MapGenerator(Map map)
         {
             this.Map = map;
-            for (int i = 0; i < map.Depth; i++)
+            for (int i = 0; i < map.Depth; ++i)
                 this.Generate(map[i]);
         }
 
@@ -99,13 +95,13 @@ namespace ZodFortress.Engine
         /// <param name="endingPoint">Ending point of the rectangle (lower right corner)</param>
         public void PlaceRectangle(Board board, BoardBlock block, Point startingPoint, Point endingPoint)
         {
-            for (int i = 0; i < endingPoint.X - startingPoint.X; i++)
+            for (int i = 0; i < endingPoint.X - startingPoint.X; ++i)
             {
                 PlaceBlock(board, block, startingPoint.X + i, startingPoint.Y);
                 PlaceBlock(board, block, startingPoint.X + i, endingPoint.Y);
             }
 
-            for (int i = 0; i < endingPoint.Y - startingPoint.Y + 1; i++)
+            for (int i = 0; i < endingPoint.Y - startingPoint.Y + 1; ++i)
             {
                 PlaceBlock(board, block, startingPoint.X, startingPoint.Y + i);
                 PlaceBlock(board, block, endingPoint.X, startingPoint.Y + i);
@@ -138,7 +134,7 @@ namespace ZodFortress.Engine
         {
             for (int i = 0; i < sideLength; i++)
                 for (int j = 0; j < sideLength; j++)
-                    PlaceBlock(board, block, new Point(startingX+i, startingY+j));
+                    PlaceBlock(board, block, new Point(startingX + i, startingY + j));
         }
 
         /// <summary>
