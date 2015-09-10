@@ -32,8 +32,7 @@ namespace ZodFortress.Engine.Units
             this.AttackStat = 1;
             this.DefenseStat = 1;
             this.Inventory = new List<Item>();
-            int index = 1;
-            ExperienceChart = ExperienceChart.Select(x => (int)Math.Round(Math.Log(Math.Pow(index, 2)) * Math.Pow(index++, 2))).ToArray();       
+            ExperienceChart = Enumerable.Range(1, 100).Select(x => (int)Math.Round(Math.Log(Math.Pow(x, 2)) * Math.Pow(x, 2))).ToArray();
         }
 
         /// <summary>
