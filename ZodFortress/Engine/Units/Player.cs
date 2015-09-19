@@ -32,7 +32,7 @@ namespace ZodFortress.Engine.Units
             this.AttackStat = 1;
             this.DefenseStat = 1;
             this.Inventory = new List<Item>();
-            ExperienceChart = Enumerable.Range(1, 100).Select(x => (int)Math.Round(Math.Log(Math.Pow(x, 2)) * Math.Pow(x, 2))).ToArray();
+            this.ExperienceChart = Enumerable.Range(1, 100).Select(x => (int)Math.Round(Math.Log(Math.Pow(x, 2)) * Math.Pow(x, 2))).ToArray();
         }
 
         /// <summary>
@@ -146,16 +146,15 @@ namespace ZodFortress.Engine.Units
                     break;
                 else
                     ++expectedLevel;
-            for (int i = 0; i < expectedLevel - currentLevel; i++)
-                LevelUp();
+            LevelUp(expectedLevel - currentLevel);
         }
 
-        private void LevelUp()
+        private void LevelUp(int levels = 1)
         {
-            this.Level++;
-            this.AttackStat++;
-            this.DefenseStat++;
-            this.Health += 5;
+            this.Level += levels;
+            this.AttackStat += levels * 1;
+            this.DefenseStat += levels * 1;
+            this.Health += levels * 5;
         }
     }
 }
