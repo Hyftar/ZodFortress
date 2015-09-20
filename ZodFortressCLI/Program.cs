@@ -11,25 +11,26 @@ namespace ZodFortressCLI
     internal class Program
     {
         internal static bool IsRuning = true;
+        internal static string lastOutput = string.Empty;
 
         [STAThread]
         static void Main(string[] args)
         {
 
-            var map = new Map(100,100, 1, MapGenerator.Grass);
+            var map = new Map(100, 100, 1, MapGenerator.Grass);
             var generator = new MapGenerator(map);
-            var player = new Player(map.Layers.First(), new Point(50,50));
+            var player = new Player(map.Layers.First(), new Point(50, 50));
+            
             Draw(map, player);
             Update(map, player);
-
             Console.Title = "ZodFortress";
 
             while (IsRuning)
             {
                 Draw(map, player);
+                OutputText(lastOutput);
                 Update(map, player);
                 PlayerAction(map.Layers.First(), new CommandParser().Parse(Console.ReadLine()), player);
-                Console.ReadKey();
             }
         }
 
@@ -86,7 +87,6 @@ namespace ZodFortressCLI
             Console.Write('E');
             PlaceCursor(75, 2);
             Console.Write('S');
-
 
             //draw the viewport
             DrawBlocks(map, player);
@@ -183,12 +183,13 @@ namespace ZodFortressCLI
             Program.IsRuning = false;
             Console.Read();
         }
+
         #region InputEvent
         private static bool PlayerAction(Board board, Command input, Player player)
         {
             if (!input.Success)
             {
-                OutputText("This is not a valid command");
+                lastOutput = "This is not a valid command";
                 return false;
             }
             else if (input.GameCommand.Any())
@@ -200,7 +201,7 @@ namespace ZodFortressCLI
                     case "wtf":
                     case "fuck":
                         System.Windows.Forms.Clipboard.SetText("https://github.com/Hyftar/ZodFortress/blob/master/README.md");
-                        OutputText("Commands must be composed of 3 keys { Command or order, object, location } see https://github.com/Hyftar/ZodFortress/blob/master/README.md for more details. The url was copied to the clipboard.");
+                        lastOutput = "Commands must be composed of 3 keys { Command or order, object, location } see https://github.com/Hyftar/ZodFortress/blob/master/README.md for more details. The url was copied to the clipboard.";
                         return false;
 
                     case "exit":
@@ -211,7 +212,7 @@ namespace ZodFortressCLI
                         break;
                     // ADD GAME COMMANDS CASES HERE.
                     default:
-                        OutputText("Command not recognized.");
+                        lastOutput = "Command not recognized.";
                         return false;
                 }
             }
@@ -235,11 +236,11 @@ namespace ZodFortressCLI
                             case "n":
                                 if (player.Move(MovementDirection.Up))
                                 {
-                                    OutputText("Moved up.");
+                                    lastOutput = "Moved up.";
                                     return true;
                                 }
                                 else
-                                    OutputText("Failed to move up.");
+                                    lastOutput = "Failed to move up.";
                                 return false;
                             case "down":
                             case "backward":
@@ -247,36 +248,36 @@ namespace ZodFortressCLI
                             case "s":
                                 if (player.Move(MovementDirection.Down))
                                 {
-                                    OutputText("Moved down.");
+                                    lastOutput = "Moved down.";
                                     return true;
                                 }
                                 else
-                                    OutputText("Failed to move down.");
+                                    lastOutput = "Failed to move down.";
                                 return false;
                             case "left":
                             case "w":
                             case "west":
                                 if (player.Move(MovementDirection.Left))
                                 {
-                                    OutputText("Moved left.");
+                                    lastOutput = "Moved left.";
                                     return true;
                                 }
                                 else
-                                    OutputText("Failed to move left.");
+                                    lastOutput = "Failed to move left.";
                                 return false;
                             case "right":
                             case "east":
                             case "e":
                                 if (player.Move(MovementDirection.Right))
                                 {
-                                    OutputText("Moved right.");
+                                    lastOutput = "Moved right.";
                                     return true;
                                 }
                                 else
-                                    OutputText("Failed to move right.");
+                                    lastOutput = "Failed to move right.";
                                 return false;
                             default:
-                                OutputText("Location not recognized.");
+                                lastOutput = "Location not recognized.";
                                 return false;
                         }
 
