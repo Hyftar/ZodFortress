@@ -30,7 +30,7 @@ namespace ZodFortress.Engine
         /// </summary>
         public void Generate(Board board)
         {
-            // Fills the map with Trees
+            // Fills the map with Trees & what not
             Random rng = new Random();
             int r = 0;
             for (int i = 0; i < board.Size.Width; i++)
@@ -42,9 +42,58 @@ namespace ZodFortress.Engine
                     else if (r == 1)
                         PlaceBlock(board, Rock, i, j);
                 }
+            // Fills the map with roads
+            //prototype
+            int roadxo = 99
+              , roadyo = 0
+              , roadx1 = 0
+              , roady1 = 99;
+            int m = 1;
+            int b = 1;
+            double dec = ((roadyo - roady1) / (roadxo - roadx1));
+            m = (int)Math.Round(dec);
+            b = roady1 - (roadx1 * m);
 
-            PlaceHouse(board, WoodWall, Floor, 55, 50);
+            int ic = 0;
+            int bx;
+            int sx;
+
+            if (roadx1 > roadxo)
+            {
+                bx = roadx1;
+                sx = roadxo;
+            }
+            else
+            {
+                bx = roadxo;
+                sx = roadx1;
+            }
+
+            int deltx = bx - sx;
+            if (m > 0)
+            {
+                while (ic <= deltx)
+                {
+
+                    PlaceBlock(board, Water, sx + ic, ((m * sx) + ic) + b);
+                    ic++;
+                }
+            }
+            else
+            {
+                while (ic <= deltx)
+                {
+
+                    PlaceBlock(board, Water, sx + ic, ((-m * sx) + ic) + b);
+                    ic++;
+                }
+            }
+
+            //end function
+            PlaceHouse(board, WoodWall, Floor, 50-2, 50-2);
+            
         }
+
 
         /// <summary>
         /// Places a block at the specified location in the map.
@@ -81,6 +130,8 @@ namespace ZodFortress.Engine
         /// <param name="y">Y coordinate where the top left corner of the house will be placed</param>
         public void PlaceHouse(Board board, BoardBlock wallBlock, BoardBlock floorBlock, int x, int y)
         {
+            PlaceRectangle(board, Grass, new Point(x-1, y-1), new Point(x + 5, y + 5));
+            PlaceRectangle(board, Grass, new Point(x - 2, y - 2), new Point(x + 6, y + 6));
             PlaceSquare(board, floorBlock, new Point(x + 1, y + 1), 3);
             PlaceRectangle(board, WoodWall, new Point(x, y), new Point(x + 4, y + 4));
             PlaceBlock(board, floorBlock, x + 2, y);
